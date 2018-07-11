@@ -2,11 +2,74 @@
 <!doctype html>
 <html>
 	<head>
-		
+		<title>Cakeulator</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="style.css">
 	</head>
 
 	<body>
+		<div v-cloak id="app">
 
+		
+
+			<nav>
+				<ul>
+					<li><span id="logo">Cakeulator</span></li>
+					<li @click="my_recipes_onclick">My Recipes</li>
+					<li @click="add_recipe_onclick">Add Recipe</li>
+				</ul>
+			</nav>
+
+			<div v-if="show_my_recipes_div" class="container">
+				<div class="row" v-for="(index, recipe) in my_recipes">
+					{{ recipe }}
+
+				</div>
+			</div>
+
+			<div v-if="show_add_recipe_div" class="container">
+				
+				<div class="form_div">
+
+					<div class="row">
+						<h3>Recipe Name:</h3>
+						<input v-model="current_recipe_name" id="recipe_name_input" type="text">
+					</div>
+
+					<table>
+
+						<tr>
+							<th>Ingredient</th>
+							<th>Price</th>
+							<th>Description</th>
+							<th></th>
+						</tr>
+
+						<tr v-for="(ingredient, index) in current_ingredients">
+							<td><input v-model="current_ingredients[index].ingredient" type="text"></td>
+							<td><input v-model="current_ingredients[index].price" type="text"></td>
+							<td><input v-model="current_ingredients[index].description" type="text"></td>
+							<td><button>Edit</button></td>
+						</tr>
+
+
+					</table>
+					<div class="row">
+							<button @click="add_ingredient_onclick">Add Ingredient</button>
+							<button @click="save_recipe_onclick">Save Recipe</button>
+					</div>
+
+				</div>
+
+			</div>
+
+
+
+		</div>
+		<script src="vue.js"></script>
+		<script src="main.js" type="module"></script>
+		<script src="data.js" type="module"></script>
+		<script src="api.js" type="module"></script>
 	</body>
 
 </html>
