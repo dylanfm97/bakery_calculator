@@ -9,7 +9,8 @@ const recipeSchema = mongoose.Schema({
 	},
 	ingredients: [{
 		ingredient: String,
-		quantity: Number
+		quantity: Number,
+		unit: String
 	}],
 	instructions: {
 		type: String,
