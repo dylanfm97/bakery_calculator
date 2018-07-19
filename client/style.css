@@ -2,16 +2,21 @@
 body{
 	height: 100%;
 	margin: 0;
-	background-color: white;
-	font-family: 'Gaegu', cursive;
+	background-color: #E7B06E;
+	
 }
 
 footer {
 	/*background-image: url(images/whiteFloor.png);*/
 	background-size: 15%;
 	height: 15vh;
-	background-color: #AA9C66;
+	background-image: url(images/chalkboard_background.jpg);
 	background-position: 50% 35%;
+}
+
+h1{
+	font-family: 'Dancing Script', cursive;
+	
 }
 
 html {
@@ -19,10 +24,10 @@ html {
 }
 
 nav {
-	
+	font-family: 'Gaegu', cursive;
 	border: 8px solid transparent;
 	height:97vh;
-	
+	margin-top: 15px;
 	-webkit-border-image: url(images/wooden_border.png) 50 stretch;
 	-o-border-image: url(images/wooden_border.png) 80 stretch;
 	border-image: url(images/wooden_border.png) 30 round;
@@ -67,9 +72,7 @@ nav ul li{
 	font-size:1.3rem;
 	font-family: 'Dancing Script', cursive;
 }
-#wheat{
-	height:150px;
-}
+
 
 table{
 	width:100%;
@@ -108,23 +111,56 @@ table tr{
 }
 
 .form_div{
-	margin: 0 auto;
-	width: 80%;
+	margin: 20px auto;
+	width: 60%;
 	height: auto;
-
+	min-height: 60%;
+	background-color: white;
 	padding: 10px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
 	/*overflow: auto;*/
+
+	background: #fff;
+  	box-shadow:
+    /* The top layer shadow */
+    0 1px 1px rgba(0,0,0,0.15),
+    /* The second layer */
+    0 10px 0 -5px #eee,
+    /* The second layer shadow */
+    0 10px 1px -4px rgba(0,0,0,0.15),
+     /* The third layer */
+    0 20px 0 -10px #eee,
+    /* The third layer shadow */
+    0 20px 1px -9px rgba(0,0,0,0.15);
+    /* Padding for demo purposes */
+    padding: 30px;
+}
+
+.form_div input, textarea {
+	outline: none;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom: solid black 2px;
+}
+
+.form_div #instructions {
+	width: 60%;
+
 }
 
 .form_page{
-	border: solid black 2px;
+	border: solid black 1px;
 	margin: 10px;
-	padding: 10px;
+	
+
+	
 }
+
+
 
 .jar{
 	width: 200px;
@@ -217,13 +253,14 @@ table tr{
 }
 
 #add_recipe{
-	border: solid black 2px;
+	/*background-image: url(images/wood-tile.jpg);*/
+	
 }
 
 #awning {
 	display:flex;
 	background-image: url(images/awning2.png);
-	min-height: 15%;
+	
 	background-size: 60% 80px;
 	background-repeat: repeat-x;
 	justify-content:space-around;
@@ -247,10 +284,10 @@ table tr{
 
 
 #logo{
-	
-	height: 90px;
+	font-family: 'Dancing Script', cursive;
+	height: 60px;
 	width: auto;
-	margin-left: 20px;
+	margin-left: 73px;
 }
 
 #recipe_name_input{
@@ -281,6 +318,10 @@ table tr{
 	background-image: url(images/shelf.png);
 	background-size: auto 220px;
 
+}
+
+#wheat{
+	height:150px;
 }
 
 #wrapper{

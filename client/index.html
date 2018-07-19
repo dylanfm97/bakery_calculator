@@ -6,6 +6,7 @@
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="style.css">
 		<link href="https://fonts.googleapis.com/css?family=Dancing+Script|Gaegu" rel="stylesheet">
+
 	</head>
 
 	<body>
@@ -122,7 +123,7 @@
 					
 
 
-<!--   - - - - -        ----SHELF----      - - - - - -         --->
+
 				<div id="shelf">
 					<div class="jar" v-for="(recipe, index) in my_recipes">
 						<div class="recipe"  @click="individual_recipe(recipe)">
@@ -138,13 +139,9 @@
 			</div>
 
 
-<!------ - - - - - -ADD RECIPE- - - - - - - - - - - - ------->
 
-			<div id="register_div" v-if="show_add_recipe_div">
-				<p>
-					picture of a cash register
-				</p>
-			</div>
+
+		
 
 			<div v-if="show_add_recipe_div" class="container" id="add_recipe">
 				
@@ -193,7 +190,9 @@
 
 					<div class="row">
 						<h3>Instructions</h3>
-						<input v-model="current_instructions" type="text">
+						<textarea v-model="current_instructions" type="text" id="instructions" > 
+						
+						</textarea>
 					</div>
 
 					<div class="row">
