@@ -5,29 +5,148 @@
 		<title>Cakeulator</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="style.css">
+		<link href="https://fonts.googleapis.com/css?family=Dancing+Script|Gaegu" rel="stylesheet">
 	</head>
 
 	<body>
 		<div v-cloak id="app">
 
-		
+		<div id="awning" >
+			
+			
+			<h1>Cakeulator</h1>
+			
+			<img id="logo" src="images/bikeLogo.png">
+		</div>
 
+		<div v-if="show_individual_recipe_page" id="individual_recipe">
+					<span>
+						{{ current_editing_recipe.name }}
+					</span>
+					<span>
+						{{ current_editing_recipe.instructions }}
+					</span>
+					<div class="row">
+						<button @click="edit_recipe(current_editing_recipe)">	
+							edit
+						</button>
+						<button id="delete" @click="delete_recipe(current_editing_recipe)">
+							x
+						</button>
+					</div>
+				</div>
+
+		<div id="wrapper">
 			<nav>
 				<ul>
-					<li><span id="logo">Cakeulator</span></li>
-					<li @click="my_recipes_onclick">My Recipes</li>
-					<li @click="add_recipe_onclick">Add Recipe</li>
+					<li></li>
+					<li @click="my_recipes_onclick" class="nav_button">M y &nbsp R e c i p e s</li>
+					<li @click="add_recipe_onclick" class="nav_button">A d d &nbsp R e c i p e</li>
+					
+					<li></li>
+					<li> <img id= "wheat" src="images/wheat.png"></li>
+					<li></li>
 				</ul>
 			</nav>
 
-			<div v-if="show_my_recipes_div" class="container">
-				<div class="row" v-for="(index, recipe) in my_recipes">
-					{{ recipe }}
+			
+			
 
+			<div v-if="show_my_recipes_div" class="container">
+
+<!--------         - - - - -  EDIT  - - - - -      ---------->
+				<div v-if="show_edit_page">
+
+					<div class="form_page">
+						<div class="row">
+							<h3>Recipe Name:</h3>
+							<input v-model="current_recipe_name" id="recipe_name_input" type="text">
+						</div>
+
+						<table>
+							<tr>
+								<th>Ingredient</th>
+								<th>Quantity</th>
+								<th>Unit</th>
+								<th></th>
+							</tr>
+
+							<tr v-for="(ingredient, index) in current_editing_recipe.ingredients">
+								<td>
+									<input list="edit_stuff" v-model="current_ingredients[index].ingredient">
+									<datalist id="edit_stuff" type="text">
+										<option v-for="thing in stuff" :value="thing">
+											{{ thing }}
+										</option>
+									</datalist>
+								</td>
+								<td>
+									<input type="text" v-model="current_ingredients[index].quantity">
+								</td>
+								<td>
+									<input list="edit_unit_list" v-model="current_ingredients[index].unit">
+									<datalist id="edit_unit_list" type="text">
+										<option v-for="unit in units">
+											{{ unit }}
+										</option>
+									</datalist>
+								</td>
+								<td>
+									<button @click="delete_this_editing_row(index)">
+										x
+									</button>
+								</td>
+								
+							</tr>
+						</table>
+
+						<div class="row">
+							<h3>Instructions</h3>
+							<input v-model="current_instructions" type="text">
+						</div>
+
+						<div class="row">
+								<button @click="add_ingredient_onclick(true)">Add Ingredient</button>
+								
+						</div>
+
+						<div class="row">
+							<button @click=update_recipe(editing_id)>Save</button>
+						</div>
+					</div>
 				</div>
+
+
+
+				
+					
+
+
+<!--   - - - - -        ----SHELF----      - - - - - -         --->
+				<div id="shelf">
+					<div class="jar" v-for="(recipe, index) in my_recipes">
+						<div class="recipe"  @click="individual_recipe(recipe)">
+
+							{{ recipe.name }} 
+							
+						</div>
+					</div>
+				</div>
+
+
+
 			</div>
 
-			<div v-if="show_add_recipe_div" class="container">
+
+<!------ - - - - - -ADD RECIPE- - - - - - - - - - - - ------->
+
+			<div id="register_div" v-if="show_add_recipe_div">
+				<p>
+					picture of a cash register
+				</p>
+			</div>
+
+			<div v-if="show_add_recipe_div" class="container" id="add_recipe">
 				
 				<div class="form_div">
 
@@ -37,34 +156,62 @@
 					</div>
 
 					<table>
-
 						<tr>
 							<th>Ingredient</th>
-							<th>Price</th>
-							<th>Description</th>
+							<th>Quantity</th>
+							<th>Unit</th>
 							<th></th>
 						</tr>
 
 						<tr v-for="(ingredient, index) in current_ingredients">
-							<td><input v-model="current_ingredients[index].ingredient" type="text"></td>
-							<td><input v-model="current_ingredients[index].price" type="text"></td>
-							<td><input v-model="current_ingredients[index].description" type="text"></td>
-							<td><button>Edit</button></td>
+							<td>
+								<input list="add_stuff" v-model="current_ingredients[index].ingredient">
+								<datalist id="add_stuff" type="text">
+									<option v-for="thing in stuff" :value="thing">
+										{{ thing }}
+									</option>
+								</datalist>
+							</td>
+							<td>
+								<input v-model="current_ingredients[index].quantity" type="text">
+							</td>
+							<td>
+								<input list="add_unit_list" v-model="current_ingredients[index].unit">
+								<datalist id="add_unit_list" type="text">
+									<option v-for="unit in units">
+										{{ unit }}
+									</option>
+								</datalist>
+							</td>
+							<td>
+								<button @click="delete_this_row(index)">
+									x
+								</button>
+							</td>
 						</tr>
-
-
 					</table>
+
 					<div class="row">
-							<button @click="add_ingredient_onclick">Add Ingredient</button>
-							<button @click="save_recipe_onclick">Save Recipe</button>
+						<h3>Instructions</h3>
+						<input v-model="current_instructions" type="text">
 					</div>
 
+					<div class="row">
+							<button @click="add_ingredient_onclick(false)">Add Ingredient</button>
+							<button @click="save_recipe_onclick">Save Recipe</button>
+					</div>
 				</div>
-
 			</div>
 
 
 
+
+		</div>
+		<footer>
+				<p>
+					
+				</p>
+		</footer>
 		</div>
 		<script src="vue.js"></script>
 		<script src="main.js" type="module"></script>
