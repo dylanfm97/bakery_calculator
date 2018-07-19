@@ -1,0 +1,27 @@
+const Ingredient = require('../models/ingredients')
+
+module.exports = {
+
+	listIngredients: (req, res) => {
+		Ingredient.find()
+			.then(ingredients => res.json(ingredients))
+		//res.json("You issued a GET request")
+
+	},
+
+	createIngredient: (req, res) => {
+		
+		Ingredient.create({
+			name: req.body.name,
+			price_per_unit: req.body.price_per_unit,
+			cup: req.body.cup,
+			tbsp: req.body.tbsp,
+			tsp: req.body.tsp,
+		})
+			.then(ingredient => res.status(201).json(ingredient)) 
+	},
+
+	
+
+	
+}

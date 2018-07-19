@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const app = express()
 
 const recipesRouter = require('./routes/recipes')
+const ingredientsRouter = require('./routes/ingredients')
 
 app.use(bodyParser.json())
 app.use(express.static(`${__dirname}/../client`))
@@ -12,6 +13,7 @@ app.use(morgan('tiny'))
 
 //namespacing so the new root is /recipes
 app.use('/recipes', recipesRouter)
+app.use('/ingredients', ingredientsRouter)
 
 app.use((req, res, next) => {
 	if(req.error){
