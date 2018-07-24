@@ -4,11 +4,13 @@ const data = {
 	current_ingredients: [{
 		ingredient: "",
 		quantity: "",
-		unit: ""
+		unit: "",
+		servings: "",
 	}],
 	current_index: 0,
 	current_recipe_name: '',
 	current_instructions: '',
+	current_servings: '',
 	my_recipes: {},
 	show_edit_page: false,
 	current_editing_recipe: null,
@@ -20,18 +22,29 @@ const data = {
 		"pinch",
 		"item",
 	],
-	stuff: [
-		"eggs",
-		"tomatoes",
-		"potatoes",
-		"rice",
-		"beans",
-		"salsa",
-		"flour",
-		"sugar",
-		"salt"
-	],
+	stuff: [],
+	ingredients_names: [],
 	show_individual_recipe_page: false,
+	valid: {
+		recipe_name: true,
+		ingredients: true,
+		quantity: true,
+		unit: true,
+		instructions: true,
+		servings: true
+	},
+	invalid_message: {
+		message: "",
+		name: false,
+		ingredient: false,
+		quantity: false,
+		unit: false,
+		instructions: false,
+		servings: false
+
+
+	},
+	recipe_is_valid: true,
 	
 
 }

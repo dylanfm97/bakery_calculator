@@ -14,7 +14,8 @@ module.exports = {
 		Recipe.create({
 			name: req.body.name,
 			ingredients: req.body.ingredients,
-			instructions: req.body.instructions
+			instructions: req.body.instructions,
+			servings: req.body.servings
 		})
 			.then(recipe => res.status(201).json(recipe)) 
 	},
@@ -34,6 +35,7 @@ module.exports = {
 				recipe.name = req.body.name
 				recipe.ingredients = req.body.ingredients
 				recipe.instructions = req.body.instructions
+				recipe.servings = req.body.servings
 				return recipe.save()
 
 			})

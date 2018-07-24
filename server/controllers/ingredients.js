@@ -21,6 +21,23 @@ module.exports = {
 			.then(ingredient => res.status(201).json(ingredient)) 
 	},
 
+	updateIngredient: (req, res) => {
+		Ingredient.findById(req.params.id)
+			.then(ingredient => {
+				if (ingredient == null) {
+					res.status(404).send()
+					return
+				}
+				ingredient.name = req.body.name
+				ingredient.price_per_unit = req.body.price_per_unit
+				ingredient.cup = req.body.cup
+				ingredient.tbsp = req.body.tbsp
+				ingredient.tsp = req.body.tsp
+				return ingredient.save()
+			})
+				.then(ingredient => res.json(ingredient))
+	}
+
 	
 
 	

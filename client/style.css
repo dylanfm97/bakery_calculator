@@ -115,7 +115,6 @@ table tr{
 	width: 60%;
 	height: auto;
 	min-height: 60%;
-	background-color: white;
 	padding: 10px;
 	display: flex;
 	flex-direction: column;
@@ -123,23 +122,25 @@ table tr{
 	align-items: center;
 	/*overflow: auto;*/
 
-	background: #fff;
+	background: url(images/parch.jpg);
+	background-size: cover;
   	box-shadow:
     /* The top layer shadow */
     0 1px 1px rgba(0,0,0,0.15),
     /* The second layer */
-    0 10px 0 -5px #eee,
+    0 10px 0 -5px #e8d8bb,
     /* The second layer shadow */
     0 10px 1px -4px rgba(0,0,0,0.15),
      /* The third layer */
-    0 20px 0 -10px #eee,
+    0 20px 0 -10px #e8d8bb,
     /* The third layer shadow */
     0 20px 1px -9px rgba(0,0,0,0.15);
     /* Padding for demo purposes */
     padding: 30px;
 }
 
-.form_div input, textarea {
+.goodInput {
+	background-color:rgba(0,0,0,0); 
 	outline: none;
 	border-top: none;
 	border-left: none;
@@ -147,9 +148,12 @@ table tr{
 	border-bottom: solid black 2px;
 }
 
-.form_div #instructions {
+.form_div .instructions {
 	width: 60%;
 
+}
+.badInput {
+	border-color:red;
 }
 
 .form_page{
@@ -160,12 +164,25 @@ table tr{
 	
 }
 
+.ingredient{
+	margin: 0 15px;
+}
 
+.ingredients_list{
+	display: flex;
+	flex-direction: column;
+	align-items: space-between;
+	justify-content: center;
+	flex-wrap: wrap;
+	width: 80%;
+	height: 10vh;
+	margin:  0 auto;
+}
 
 .jar{
 	width: 200px;
 	height: 200px;
-	margin-bottom:20px;
+	margin-bottom: 20px;
 	background-image: url(images/nonshiny.png);
 
 	background-size: cover;
@@ -243,8 +260,18 @@ table tr{
 	width: 100%;
 	display: flex;
 	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.row_wrap{
+	height: auto;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
 	justify-content: space-around;
 	align-items: center;
+	flex-wrap: wrap;
 }
 
 #app{
@@ -258,12 +285,12 @@ table tr{
 }
 
 #awning {
-	display:flex;
-	background-image: url(images/awning2.png);
 	
-	background-size: 60% 80px;
+	background-image: url(images/shadowAwning.png);
+	min-height: 110px;
+	background-size: 60% 105px;
 	background-repeat: repeat-x;
-	justify-content:space-around;
+	
 }
 
 
@@ -272,18 +299,26 @@ table tr{
 }
 
 #individual_recipe{
-	border: solid black 2px;
-	padding: 15px;
+	background-image: url(images/brownEasel.png);
+	background-size:contain;
+	background-repeat: no-repeat;
+	background-position:center;
+	padding: 100px 200px 200px 200px;
 	margin: 10px;
-
+	width: 50vw;
+	margin: 0 auto;
+	height:50vh;
+	min-height: 400px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
+	font-family: 'Cinzel', serif;
 }
 
 
 #logo{
+	float:right;
 	font-family: 'Dancing Script', cursive;
 	height: 60px;
 	width: auto;
@@ -305,19 +340,27 @@ table tr{
 	-webkit-border-image: url(images/wooden_border.png) 50 stretch;
 	-o-border-image: url(images/wooden_border.png) 80 stretch;
 	border-image: url(images/wooden_border.png) 30 round;
-	min-height: 80%;
+	min-height: 600px;
 	height: auto;
 	width: 80%;
 	padding: 20px;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
-	align-items: space-around;
+	align-items: baseline;
 	flex-wrap: wrap;
 
 	background-image: url(images/shelf.png);
 	background-size: auto 220px;
 
+}
+
+#title{
+	position:absolute;
+	top:45px;
+	left:37%;
+	margin:0px;
+	font-family:'Cormorant Unicase', serif;
 }
 
 #wheat{

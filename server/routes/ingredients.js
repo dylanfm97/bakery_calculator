@@ -7,4 +7,6 @@ const ingredientController = require('../controllers/ingredients')
 router.get('/', ingredientController.listIngredients)
 router.post('/', ingredientController.createIngredient)
 
+router.put('/:id', ingredientController.updateIngredient)
+
 module.exports = router

@@ -1,6 +1,6 @@
 
 
-const add_recipe = (recipe_name, ingredients, instructions) => {
+const add_recipe = (recipe_name, ingredients, instructions,servings) => {
 	return new Promise((resolve, reject) => {
 		//let parsed_recipe = JSON.stringify(recipe)
 		
@@ -13,9 +13,11 @@ const add_recipe = (recipe_name, ingredients, instructions) => {
 				'name': recipe_name,
 				'ingredients': ingredients,
 				'instructions': instructions,
+				'servings': servings
 			})
 		})
 			.then(res => res.json())
+			.then(recipe => resolve(recipe))
 			//.then(console.log("it happened"))
 	})
 }
@@ -41,7 +43,7 @@ const delete_recipe = (id) => {
 	})
 }
 
-const update_recipe = (recipe_name, ingredients, instructions, id) => {
+const update_recipe = (recipe_name, ingredients, instructions,servings, id) => {
 	return new Promise((resolve, reject) => {
 		fetch('/recipes/'+id, {
 			method: 'PUT',
@@ -51,11 +53,22 @@ const update_recipe = (recipe_name, ingredients, instructions, id) => {
 			body: JSON.stringify({
 				'name': recipe_name,
 				'ingredients': ingredients,
-				'instructions': instructions
+				'instructions': instructions,
+				'servings': servings,
 			})
 		})
 			.then(res => res.json())
+			.then(recipe => resolve(recipe))
 
+	})
+}
+
+const get_ingredients = () => {
+	return new Promise((resolve, reject) => {
+		
+		fetch('/ingredients')
+			.then(res => res.json())
+			.then(ingredients => resolve(ingredients))
 
 	})
 }
@@ -64,5 +77,6 @@ export default{
 	add_recipe,
 	get_recipes,
 	delete_recipe,
-	update_recipe
+	update_recipe,
+	get_ingredients
 }

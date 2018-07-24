@@ -6,6 +6,7 @@
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="style.css">
 		<link href="https://fonts.googleapis.com/css?family=Dancing+Script|Gaegu" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Cinzel|Cormorant+Unicase" rel="stylesheet">
 
 	</head>
 
@@ -15,27 +16,12 @@
 		<div id="awning" >
 			
 			
-			<h1>Cakeulator</h1>
+			<h1 id="title">C &nbsp A &nbsp K &nbsp E &nbsp U &nbsp L &nbsp A &nbsp T &nbsp O &nbsp R</h1>
 			
 			<img id="logo" src="images/bikeLogo.png">
 		</div>
 
-		<div v-if="show_individual_recipe_page" id="individual_recipe">
-					<span>
-						{{ current_editing_recipe.name }}
-					</span>
-					<span>
-						{{ current_editing_recipe.instructions }}
-					</span>
-					<div class="row">
-						<button @click="edit_recipe(current_editing_recipe)">	
-							edit
-						</button>
-						<button id="delete" @click="delete_recipe(current_editing_recipe)">
-							x
-						</button>
-					</div>
-				</div>
+		
 
 		<div id="wrapper">
 			<nav>
@@ -51,19 +37,17 @@
 			</nav>
 
 			
-			
+			<div v-if="show_edit_page" class="container">
 
-			<div v-if="show_my_recipes_div" class="container">
-
-<!--------         - - - - -  EDIT  - - - - -      ---------->
-				<div v-if="show_edit_page">
-
-					<div class="form_page">
+					<div class="form_div">
 						<div class="row">
 							<h3>Recipe Name:</h3>
-							<input v-model="current_recipe_name" id="recipe_name_input" type="text">
+							<input class = "goodInput" v-model="current_recipe_name" id="recipe_name_input" type="text">
 						</div>
 
+						<div class="row invalid_message" v-if="invalid_message.name">
+							<span>Please enter a name for the recipe</span>
+						</div>
 						<table>
 							<tr>
 								<th>Ingredient</th>
@@ -74,18 +58,18 @@
 
 							<tr v-for="(ingredient, index) in current_editing_recipe.ingredients">
 								<td>
-									<input list="edit_stuff" v-model="current_ingredients[index].ingredient">
+									<input class = "goodInput" list="edit_stuff" v-model="current_ingredients[index].ingredient">
 									<datalist id="edit_stuff" type="text">
-										<option v-for="thing in stuff" :value="thing">
+										<option v-for="thing in ingredients_names" :value="thing">
 											{{ thing }}
 										</option>
 									</datalist>
 								</td>
 								<td>
-									<input type="text" v-model="current_ingredients[index].quantity">
+									<input class = "goodInput" type="text" v-model="current_ingredients[index].quantity">
 								</td>
 								<td>
-									<input list="edit_unit_list" v-model="current_ingredients[index].unit">
+									<input class = "goodInput" list="edit_unit_list" v-model="current_ingredients[index].unit">
 									<datalist id="edit_unit_list" type="text">
 										<option v-for="unit in units">
 											{{ unit }}
@@ -101,9 +85,34 @@
 							</tr>
 						</table>
 
+						<div class="row invalid_message" v-if="invalid_message.ingredient || invalid_message.quantity || invalid_message.unit">
+							<span >
+								<span v-if="invalid_message.ingredient">Please enter a valid ingredient</span>
+							</span>
+							<span>
+								<span  v-if="invalid_message.quantity">Please enter a valid quantity</span>
+							</span>
+							<span>
+								<span  v-if="invalid_message.unit">Please enter a valid unit</span>
+							</span>
+						</div>
+
+						<div class="row">
+							<h3>Number of Servings</h3>
+							<input class = "goodInput" v-model ="current_servings" type = text">
+						</div>
+
+						<div class ="row invalid_message" v-if="invalid_message.servings">
+							<span> Please enter a valid Number of Servings</span>
+						</div>
+
 						<div class="row">
 							<h3>Instructions</h3>
-							<input v-model="current_instructions" type="text">
+							<input class = "goodInput" v-model="current_instructions" type="text">
+						</div>
+
+						<div class="row invalid_message" v-if="invalid_message.instructions">
+							<span>Please enter valid instructions</span>
 						</div>
 
 						<div class="row">
@@ -117,19 +126,26 @@
 					</div>
 				</div>
 
+			<div v-if="show_my_recipes_div" class="container">
+
+<!--------         - - - - -  EDIT  - - - - -      ---------->
+				
+
 
 
 				
 					
-
+			
 
 
 				<div id="shelf">
-					<div class="jar" v-for="(recipe, index) in my_recipes">
-						<div class="recipe"  @click="individual_recipe(recipe)">
+					<div class="row_wrap">
+						<div class="jar" v-for="(recipe, index) in my_recipes">
+							<div class="recipe"  @click="individual_recipe(recipe)">
 
-							{{ recipe.name }} 
-							
+								{{ recipe.name }} 
+								
+							</div>
 						</div>
 					</div>
 				</div>
@@ -141,6 +157,42 @@
 
 
 
+			<div v-if="show_individual_recipe_page" id="individual_recipe">
+				<span>
+					{{ current_editing_recipe.name }}
+				</span>
+				
+				<span class="row">
+					<span>Wholesale Price: ${{ wholesale.toFixed(2) }}</span>
+					<span>Servings: {{ current_editing_recipe.servings }}</span>
+				</span>
+				<div class="ingredients_list">
+					<span class="ingredient"v-for="(ingredient, index) in current_editing_recipe.ingredients">
+						{{ ingredient.quantity }}
+						{{ ingredient.unit }}
+						{{ ingredient.ingredient }}
+						
+						
+						
+					</span>
+				</div>
+				<span>
+					{{ current_editing_recipe.instructions }}
+				</span>
+			
+
+				<div class="row">
+					<button @click="edit_recipe(current_editing_recipe)">	
+						edit
+					</button>
+					<button id="delete" @click="delete_recipe(current_editing_recipe)">
+						delete
+					</button>
+					<button @click="go_back">Go Back</button>
+				</div>
+			</div>
+
+
 		
 
 			<div v-if="show_add_recipe_div" class="container" id="add_recipe">
@@ -149,7 +201,11 @@
 
 					<div class="row">
 						<h3>Recipe Name:</h3>
-						<input v-model="current_recipe_name" id="recipe_name_input" type="text">
+						<input class="goodInput" v-model="current_recipe_name" id="recipe_name_input" type="text" v-bind:class="{badInput: !(valid.recipe_name)}">
+					</div>
+
+					<div class="row invalid_message" v-if="invalid_message.name">
+						<span>Please enter a name for the recipe</span>
 					</div>
 
 					<table>
@@ -160,20 +216,23 @@
 							<th></th>
 						</tr>
 
+
+						
+
 						<tr v-for="(ingredient, index) in current_ingredients">
 							<td>
-								<input list="add_stuff" v-model="current_ingredients[index].ingredient">
+								<input class="goodInput" list="add_stuff" v-model="current_ingredients[index].ingredient" v-bind:class="{badInput: !(valid.ingredients)}">
 								<datalist id="add_stuff" type="text">
-									<option v-for="thing in stuff" :value="thing">
+									<option v-for="thing in ingredients_names" :value="thing">
 										{{ thing }}
 									</option>
 								</datalist>
 							</td>
 							<td>
-								<input v-model="current_ingredients[index].quantity" type="text">
+								<input  class="goodInput" v-model="current_ingredients[index].quantity" type="text" v-bind:class="{badInput: !(valid.quantity)}">
 							</td>
 							<td>
-								<input list="add_unit_list" v-model="current_ingredients[index].unit">
+								<input  class="goodInput" list="add_unit_list" v-model="current_ingredients[index].unit" v-bind:class="{badInput: !(valid.unit)}">
 								<datalist id="add_unit_list" type="text">
 									<option v-for="unit in units">
 										{{ unit }}
@@ -188,11 +247,37 @@
 						</tr>
 					</table>
 
+					<div class="row invalid_message" v-if="invalid_message.ingredient || invalid_message.quantity || invalid_message.unit">
+						<span >
+							<span v-if="invalid_message.ingredient">Please enter a valid ingredient</span>
+						</span>
+						<span>
+							<span  v-if="invalid_message.quantity">Please enter a valid quantity</span>
+						</span>
+						<span>
+							<span  v-if="invalid_message.unit">Please enter a valid unit</span>
+						</span>
+
+					</div>
+
+					<div class="row">
+							<h3>Number of Servings</h3>
+							<input v-model ="current_servings" type = text" class="instructions goodInput" v-bind:class="{badInput: !(valid.servings)}">
+					</div>
+
+					<div class ="row invalid_message" v-if="invalid_message.servings">
+						<span> Please enter a valid Number of Servings</span>
+					</div>
+
 					<div class="row">
 						<h3>Instructions</h3>
-						<textarea v-model="current_instructions" type="text" id="instructions" > 
+						<textarea v-model="current_instructions" type="text" class="instructions goodInput" v-bind:class="{badInput: !(valid.instructions)}"> 
 						
 						</textarea>
+					</div>
+
+					<div class="row invalid_message" v-if="invalid_message.instructions">
+						<span>Please enter valid instructions</span>
 					</div>
 
 					<div class="row">
