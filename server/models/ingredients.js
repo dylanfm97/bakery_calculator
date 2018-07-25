@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 
-
 const ingredientSchema = mongoose.Schema({
 
 	name: {
@@ -23,11 +22,7 @@ const ingredientSchema = mongoose.Schema({
 		type: Number,
 		required: true
 	}
-
-
 	
 })
-
-
 
 module.exports = mongoose.model('Ingredient', ingredientSchema)
