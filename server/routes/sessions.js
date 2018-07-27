@@ -4,7 +4,7 @@ const router = express.Router()
 const sessionsController = require('../controllers/sessions')
 
 //Prices/Ingredients
-router.get('/', sessionsController.retrieveSession)
+// router.get('/', sessionsController.retrieveSession)
 router.post('/', sessionsController.createSession)
 
 

@@ -7,25 +7,24 @@ const sessions = require('./controllers/sessions')
 var cookieParser = require('cookie-parser')
 const app = express()
 
+const sessionsRouter = require('./routes/sessions')
 const recipesRouter = require('./routes/recipes')
 const ingredientsRouter = require('./routes/ingredients')
 const cookieRouter = require('./routes/cookies')
 const usersRouter = require('./routes/users')
-const sessionsRouter = require('./routes/sessions')
 
 app.use(bodyParser.json())
 app.use(morgan('tiny'))
 app.use(cookieParser())
-
+app.use(express.static(`${__dirname}/../client`))
+app.use('/users', usersRouter)
+app.use('/sessions', sessionsRouter)
 app.use(sessions.retrieveSession)
 
-//namespacing so the new root is /recipes
-app.use(express.static(`${__dirname}/../client`))
+
 app.use('/recipes', recipesRouter)
 app.use('/ingredients', ingredientsRouter)
 app.use('/cookie', cookieRouter)
-app.use('/users', usersRouter)
-app.use('/sessions', sessionsRouter)
 
 
 app.use((req, res, next) => {

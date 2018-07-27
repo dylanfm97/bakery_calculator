@@ -12,9 +12,12 @@ module.exports = {
 	createUser: (req, res) => {	
 		let hash_password = bcrypt.hashSync(req.body.password, 8)
 
-		
-
-
+		Users.findOne({'email': req.body.email })
+			.then(user => {
+				if(user){
+					res.status(422)
+				}
+			})
 
 		Users.create({
 			name: req.body.name,
@@ -22,7 +25,7 @@ module.exports = {
 			hashed_password: hash_password,
 
 		})
-			.then(user => res.status(201).json(user)) 
+			.then(user => res.json(user)) 
 	},
 	getUsers: (req, res) => {
 		Users.find()

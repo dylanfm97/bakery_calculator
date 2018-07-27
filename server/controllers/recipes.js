@@ -3,9 +3,7 @@ const Recipe = require('../models/recipes')
 module.exports = {
 
 	listRecipes: (req, res) => {
-		var sessData = req.session;
-  		sessData.someAttribute = "foo";
-  		res.send('Returning with some text');
+		
 		Recipe.find()
 			.then(recipes => res.json(recipes))
 
